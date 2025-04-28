@@ -5,7 +5,7 @@ import CPF from "../modelo/cpf"
 export default class AtualizacaoCliente {
     private clientes: Array<Cliente>
     private entrada: Entrada
-    
+///teste agora
     constructor(clientes: Array<Cliente>) {
         this.clientes = clientes
         this.entrada = new Entrada()
@@ -39,6 +39,7 @@ export default class AtualizacaoCliente {
                 }
                 
                 console.log("\nCliente atualizado com sucesso!")
+
                 break
             }
         }

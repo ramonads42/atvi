@@ -1,7 +1,7 @@
 import Entrada from "../io/entrada";
 import Empresa from "../modelo/empresa";
 import CadastroCliente from "../negocio/cadastroCliente";
-import ListagemClientes from "../negocio/listagemClientes";
+import ListagemClientes from "../negocio/listagemCliente";
 import AtualizacaoCliente from "../negocio/atualizarCliente";
 import ExclusaoCliente from "../negocio/excluirCliente";
 import CadastroPet from "../negocio/cadastroPet";
@@ -12,8 +12,11 @@ import CadastroProduto from "../negocio/cadastroProduto";
 import ListagemProdutos from "../negocio/listagemProduto";
 import AtualizacaoProduto from "../negocio/atualizarProduto";
 import ExclusaoProduto from "../negocio/excluirProduto";
-
-
+import CadastroServico from "../negocio/cadastroServico";
+import ListagemServico from "../negocio/listagemServico";
+import ExclusaoServico from "../negocio/excluirServico";
+import AtualizacaoServico from "../negocio/atualizarServico";
+import RegistroConsumo from "../negocio/registroConsumo";
 
 console.log("Bem-vindo ao melhor sistema de gerenciamento de pet shops e clínicas veterinárias");
 let empresa = new Empresa();
@@ -148,13 +151,48 @@ while (execucao) {
         }
     }
     else if (opcao === 4) {
-        console.log("\nFuncionalidade de gerenciamento de serviços em desenvolvimento...");
+        // Menu de serviços
+        let execucaoServicos = true;
+        while (execucaoServicos) {
+            console.log("\nGerenciamento de Serviços:");
+            console.log("1 - Cadastrar serviço");
+            console.log("2 - Listar serviços");
+            console.log("3 - Atualizar serviço (em desenvolvimento)");
+            console.log("4 - Excluir serviço");
+            console.log("0 - Voltar ao menu principal");
+            
+            let opcaoServicos = entrada.receberNumero("Por favor, escolha uma opção: ");
+            
+            if (opcaoServicos === 1) {
+                let cadastro = new CadastroServico(empresa.getServicos);
+                cadastro.cadastrar();
+            }
+            else if (opcaoServicos === 2) {
+                let listagem = new ListagemServico(empresa.getServicos);
+                listagem.listar();
+            }
+            else if (opcaoServicos === 3) {
+                let atualizacao = new AtualizacaoServico(empresa.getServicos);
+                atualizacao.atualizar();
+            }
+            else if (opcaoServicos === 4) {
+                let exclusao = new ExclusaoServico(empresa.getServicos);
+                exclusao.excluir();
+            }
+            else if (opcaoServicos === 0) {
+                execucaoServicos = false;
+            }
+            else {
+                console.log("\nOperação não entendida :(");
+            }
+        }
     }
     else if (opcao === 5) {
-        console.log("\nFuncionalidade de registro de consumo em desenvolvimento...");
+        let registro = new RegistroConsumo(empresa.getClientes, empresa.getProdutos, empresa.getServicos);
+        registro.registrar();
     }
     else if (opcao === 6) {
-        console.log("\nFuncionalidade de relatórios em desenvolvimento...");
+        console.log("\nFuncionalidade de relatórios em desenvolvimento que vai mostrar a Listagem dos 10 clientes que mais consumiram produtos ou serviços, em quantidade, não em valor, Listagem geral dos serviços ou produtos mais consumidos. Listagem dos serviços ou produtos mais consumidos por tipo e raça de pets. e  a Listagem dos 5 clientes que mais consumiram em valor, não em quantidade.....");
     }
     else if (opcao === 0) {
         execucao = false;

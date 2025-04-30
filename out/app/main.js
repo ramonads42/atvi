@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const entrada_1 = __importDefault(require("../io/entrada"));
 const empresa_1 = __importDefault(require("../modelo/empresa"));
 const cadastroCliente_1 = __importDefault(require("../negocio/cadastroCliente"));
-const listagemClientes_1 = __importDefault(require("../negocio/listagemClientes"));
+const listagemCliente_1 = __importDefault(require("../negocio/listagemCliente"));
 const atualizarCliente_1 = __importDefault(require("../negocio/atualizarCliente"));
 const excluirCliente_1 = __importDefault(require("../negocio/excluirCliente"));
 const cadastroPet_1 = __importDefault(require("../negocio/cadastroPet"));
@@ -17,6 +17,11 @@ const cadastroProduto_1 = __importDefault(require("../negocio/cadastroProduto"))
 const listagemProduto_1 = __importDefault(require("../negocio/listagemProduto"));
 const atualizarProduto_1 = __importDefault(require("../negocio/atualizarProduto"));
 const excluirProduto_1 = __importDefault(require("../negocio/excluirProduto"));
+const cadastroServico_1 = __importDefault(require("../negocio/cadastroServico"));
+const listagemServico_1 = __importDefault(require("../negocio/listagemServico"));
+const excluirServico_1 = __importDefault(require("../negocio/excluirServico"));
+const atualizarServico_1 = __importDefault(require("../negocio/atualizarServico"));
+const registroConsumo_1 = __importDefault(require("../negocio/registroConsumo"));
 console.log("Bem-vindo ao melhor sistema de gerenciamento de pet shops e clínicas veterinárias");
 let empresa = new empresa_1.default();
 let execucao = true;
@@ -49,7 +54,7 @@ while (execucao) {
                 cadastro.cadastrar();
             }
             else if (opcaoClientes === 2) {
-                let listagem = new listagemClientes_1.default(empresa.getClientes);
+                let listagem = new listagemCliente_1.default(empresa.getClientes);
                 listagem.listar();
             }
             else if (opcaoClientes === 3) {
@@ -139,13 +144,46 @@ while (execucao) {
         }
     }
     else if (opcao === 4) {
-        console.log("\nFuncionalidade de gerenciamento de serviços em desenvolvimento...");
+        // Menu de serviços
+        let execucaoServicos = true;
+        while (execucaoServicos) {
+            console.log("\nGerenciamento de Serviços:");
+            console.log("1 - Cadastrar serviço");
+            console.log("2 - Listar serviços");
+            console.log("3 - Atualizar serviço (em desenvolvimento)");
+            console.log("4 - Excluir serviço");
+            console.log("0 - Voltar ao menu principal");
+            let opcaoServicos = entrada.receberNumero("Por favor, escolha uma opção: ");
+            if (opcaoServicos === 1) {
+                let cadastro = new cadastroServico_1.default(empresa.getServicos);
+                cadastro.cadastrar();
+            }
+            else if (opcaoServicos === 2) {
+                let listagem = new listagemServico_1.default(empresa.getServicos);
+                listagem.listar();
+            }
+            else if (opcaoServicos === 3) {
+                let atualizacao = new atualizarServico_1.default(empresa.getServicos);
+                atualizacao.atualizar();
+            }
+            else if (opcaoServicos === 4) {
+                let exclusao = new excluirServico_1.default(empresa.getServicos);
+                exclusao.excluir();
+            }
+            else if (opcaoServicos === 0) {
+                execucaoServicos = false;
+            }
+            else {
+                console.log("\nOperação não entendida :(");
+            }
+        }
     }
     else if (opcao === 5) {
-        console.log("\nFuncionalidade de registro de consumo em desenvolvimento...");
+        let registro = new registroConsumo_1.default(empresa.getClientes, empresa.getProdutos, empresa.getServicos);
+        registro.registrar();
     }
     else if (opcao === 6) {
-        console.log("\nFuncionalidade de relatórios em desenvolvimento...");
+        console.log("\nFuncionalidade de relatórios em desenvolvimento que vai mostrar a Listagem dos 10 clientes que mais consumiram produtos ou serviços, em quantidade, não em valor, Listagem geral dos serviços ou produtos mais consumidos. Listagem dos serviços ou produtos mais consumidos por tipo e raça de pets. e  a Listagem dos 5 clientes que mais consumiram em valor, não em quantidade.....");
     }
     else if (opcao === 0) {
         execucao = false;

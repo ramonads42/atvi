@@ -1,0 +1,44 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const entrada_1 = __importDefault(require("../io/entrada"));
+class AtualizacaoServico {
+    constructor(servicos) {
+        this.servicos = servicos;
+        this.entrada = new entrada_1.default();
+    }
+    atualizar() {
+        console.log("\nAtualização de serviço");
+        // Verificar se tem serviços
+        if (this.servicos.length === 0) {
+            console.log("\nNão há serviços para atualizar!");
+            return;
+        }
+        // Mostrar todos os serviços
+        console.log("\nServiços disponíveis:");
+        for (let i = 0; i < this.servicos.length; i++) {
+            console.log(`${i + 1} - ${this.servicos[i].getNome}`);
+        }
+        // Pedir qual serviço atualizar
+        let numero = this.entrada.receberNumero("\nDigite o número do serviço que quer atualizar: ") - 1;
+        // Verificar se o número é válido
+        if (numero >= 0 && numero < this.servicos.length) {
+            let servico = this.servicos[numero];
+            // Pedir novos dados
+            let nome = this.entrada.receberTexto("Novo nome: ");
+            let valor = this.entrada.receberNumero("Novo valor: ");
+            let descricao = this.entrada.receberTexto("Nova descrição: ");
+            // Atualizar serviço
+            servico.setNome(nome);
+            servico.setValor(valor);
+            servico.setDescricao(descricao);
+            console.log("\nServiço atualizado!");
+        }
+        else {
+            console.log("\nNúmero inválido!");
+        }
+    }
+}
+exports.default = AtualizacaoServico;
